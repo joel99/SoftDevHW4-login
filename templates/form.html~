@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Form </title>
+  </head>
+  <body>
+    <form action "authen">
+      Default Text <br>
+      <input type = "text" name = "sampleText"> <br>
+      <input type = "submit">
+    </form>
+  </body>
+</html>
