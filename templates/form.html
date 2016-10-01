@@ -4,11 +4,19 @@
     <title> Form </title>
   </head>
   <body>
+    <h1> A great account system </h1>
     <form action = "/authen/" method = "POST">
       <h2> Login </h2> <br>
-      <input type = "Username" name = "userName"> <br>
-      <input type = "Password" name = "password"> <br>
+      Name: <input type = "text" name = "userName"> <br>
+      Password: <input type = "password" name = "pass"> <br>
       <input type = "submit">
     </form>
-  </body>
+    <form action = "/makeAccount/" method = "POST">
+      <h2> Make new Account </h2> <br>
+      Name: <input type = "text" name = "userName"> <br>
+      Password: <input type = "password" name = "pass1"> <br>
+      Confirm Password: <input type = "password" name = "pass2"> <br>
+      <input type = "submit">
+    </form>
+    </body>
 </html>

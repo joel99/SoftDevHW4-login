@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Account Creation </title>
+  </head>
+  <body>
+    {% if {{success}} %}
+    <p> Account created. </p>
+    {% else %}
+    <p> Account not created. Try again. </p>
+    {% endif %}
+  </body>
+  <a href = "/"> Link to home </a> 
+</html>
