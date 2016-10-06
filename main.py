@@ -1,11 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, url_for, redirect
 import hashlib, csv
 
 app = Flask(__name__)
+app.secret_key = "hi"
 
 @app.route("/")
 def home():
-    return render_template('form.html')
+    if (session[user]):
+        return render_template('loggedin.html', usr = session[user])
+    else: 
+        return render_template('form.html')
 
 @app.route("/makeAccount/", methods = ['POST'])
 def newAccount():
@@ -17,7 +21,11 @@ def newAccount():
 @app.route("/authen/", methods = ['POST'])
 def auth():
     d = request.form #works like dictionary
-    return render_template("loggedin.html", success = accountCheck(d["userName"], d["pass"]))
+    if accountCheck(d["userName"], d["pass"]):
+        return render_template("loggedin.html", success = accountCheck(d["userName"], d["pass"]))
+    else:
+        return redirect(url_for('home'))
+    
 #login
 
 def accountCheck(userName, password):
@@ -31,7 +39,10 @@ def accountCheck(userName, password):
     if not userName in d.keys():
         return False
     else:
-        return hashlib.sha512(password).hexdigest() == d[userName] 
+        if hashlib.sha512(password).hexdigest() == d[userName]: 
+            session[user] = userName #login
+            return True
+        return False
 
 
 #making new account
