@@ -4,11 +4,10 @@
     <title> Logged In </title>
   </head>
   <body>
-    {% if success %}
-    <p> Log in succeeded </p>
-    {% else %}
-    <p> Log in failed </p>
-    {% endif %}
+    <p>Welcome, {{usr}} </p>
+    <form action = "/logout/" method = "POST">
+      <input type = "submit" value = "Log out"> <br>
+    </form>
+    <a href = "/"> Link to home </a> 
   </body>
-  <a href = "/"> Link to home </a> 
 </html>

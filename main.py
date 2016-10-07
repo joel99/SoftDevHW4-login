@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, session, url_for, redirect
 import hashlib, csv
 
 app = Flask(__name__)
-app.secret_key = "hi"
+app.secret_key = "hello"
 
 @app.route("/")
 def home():
-    if (session[user]):
-        return render_template('loggedin.html', usr = session[user])
+    if "user" in session:
+        return render_template('loggedin.html', usr = session["user"])
     else: 
         return render_template('form.html')
 
@@ -22,11 +22,15 @@ def newAccount():
 def auth():
     d = request.form #works like dictionary
     if accountCheck(d["userName"], d["pass"]):
-        return render_template("loggedin.html", success = accountCheck(d["userName"], d["pass"]))
-    else:
-        return redirect(url_for('home'))
+        session["user"] = d["userName"]
+    return redirect(url_for('home'))    
     
 #login
+
+@app.route("/logout/", methods = ['POST'])
+def logout():
+    session.pop("user")
+    return redirect(url_for('home'))
 
 def accountCheck(userName, password):
     reader = csv.reader(open("data/users.csv", "r"))
@@ -40,7 +44,7 @@ def accountCheck(userName, password):
         return False
     else:
         if hashlib.sha512(password).hexdigest() == d[userName]: 
-            session[user] = userName #login
+            session["user"] = userName #login
             return True
         return False
 
